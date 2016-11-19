@@ -1,11 +1,76 @@
-// Ionic Starter App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+var app = angular.module('starter', ['ionic', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+app.controller("MainController", function($scope, $http, $q, $cordovaToast) {
+
+  $scope.ListItems = ["LK", "MI", "MM"];
+
+});
+
+
+
+
+/*
+  //http REST:
+  $scope.makeRequest = function(){
+    //make the hhtp request and pass in an object:
+
+    $http(
+    {
+      url: "https://httpbin.org/get",
+      method: "GET"
+      // no params: param:
+    })
+    .then(function(result){
+        console.log(JSON.stringify(result));
+    }, function(error){
+        console.log(JSON.stringify(error));
+    });
+  }
+*/
+
+  /*promises:
+  var testFunction = function() {
+    var deferred =$q.defer();
+    if(1 == 1) {
+      //return positive
+      deferred.resolve("this was positive");
+    } else {
+      //return negative
+      deferred.reject("this was negative");
+    }
+    //return promise
+    return deferred.promise;
+
+  }
+
+    // testFunction.then(function(result) { console.log(result); }, function(error) {} ); */
+
+
+  app.config(function($stateProvider, $urlRouterProvider){
+
+    $urlRouterProvider.otherwise("list");
+
+    $stateProvider
+      .state("list", {
+        "url": "/list",
+        "templateUrl": "templates/list.html",
+        "controller": "MainController",
+        "cache": false
+      })
+      /*
+      .state("accounts", {
+        "url": "/accounts",
+        "templateUrl": "templates/accounts.html",
+        "controller": "AccountsController",
+        "cache": false
+      });
+      */
+
+
+  })
+
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
